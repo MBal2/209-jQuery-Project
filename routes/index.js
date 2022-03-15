@@ -40,8 +40,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/getAllData', function(req, res, next) {
-  console.log("/getAllData: " + ServercarArray)
   res.status(200).json(ServercarArray);
+});
+
+router.get('/getAllDataSorted', function(req, res, next) {
+  sortedServercarArray = JSON.parse(JSON.stringify(ServercarArray));
+ 
+  sortedServercarArray.sort(function(a, b){return a.year - b.year});
+  res.status(200).json(sortedServercarArray);
 });
 
 router.post('/AddCar', function(req, res){

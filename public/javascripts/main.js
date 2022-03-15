@@ -74,11 +74,15 @@ function showSortList() {
     // clear prior data
     var myulDel = document.getElementById("myListSort");
     myulDel.innerHTML = '';
-
-    carArray.forEach(function (element,) {   // use handy array forEach method
-        var li = document.createElement('li');
-        li.innerHTML = element.data + ":  " + element.type + "  (" + element.year + ")";
-        myulDel.appendChild(li);
+    $.get("/getAllDataSorted", function (data, status) {
+        carArraySorted = data;
+       
+        carArraySorted.forEach(function (element,) {   // use handy array forEach method
+            var li = document.createElement('li');
+            li.innerHTML = element.data + ":  " + element.type + "  (" + element.year + ")";
+            myulDel.appendChild(li);
+        });
     });
+    
 };
 
