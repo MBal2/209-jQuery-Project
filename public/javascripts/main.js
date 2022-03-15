@@ -12,31 +12,23 @@ let carObject = function (pData, pType, pYear) {
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    $.get("/getAllData" , function(data, status){
+    $.get("/getAllData", function (data, status) {
         carArray = data;
 
-        // carArray.sort(function(a, b) {
-        //     return (a.priority) - (b.priority);
-        // });
-        // carArray.forEach(function(item, index){
-        //     var li = document.createElement('li');
-        //     whichElement.appendChild(li);
-        //     li.innerHTML=li.innerHTML + ": " + " priority: " + item.priority + " " + item.title + ": " + item.detail;
-        // });
     });
 
 
     document.getElementById("buttonAdd").addEventListener("click", function () {
         let carNmae = document.getElementById("car").value;
-        let myCarObj = new carObject(carNmae, selectedType,carYear);
+        let myCarObj = new carObject(carNmae, selectedType, carYear);
         carArray.push(myCarObj);
         $.ajax({
-            url : "/AddCar",
+            url: "/AddCar",
             type: "POST",
             data: JSON.stringify(myCarObj),
             contentType: "application/json; charset=utf-8",
-            dataType : "json",
-            success:function (result){
+            dataType: "json",
+            success: function (result) {
                 console.log(result);
             }
         });
@@ -53,11 +45,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     // page before show code *************************************************************************
-    $(document).on("pagebeforeshow", "#list", function (event) {   
+    $(document).on("pagebeforeshow", "#list", function (event) {
         createList();
     });
-    
-    $(document).on("pagebeforeshow", "#sort", function (event) {   
+
+    $(document).on("pagebeforeshow", "#sort", function (event) {
         showSortList();
     });
 });
@@ -71,21 +63,21 @@ function createList() {
 
     carArray.forEach(function (element,) {   // use handy array forEach method
         var li = document.createElement('li');
-        li.innerHTML = element.data + ":  " + element.type + "  (" +element.year+")";
+        li.innerHTML = element.data + ":  " + element.type + "  (" + element.year + ")";
         myul.appendChild(li);
     });
 
 };
 
 
-function showSortList() { 
+function showSortList() {
     // clear prior data
     var myulDel = document.getElementById("myListSort");
     myulDel.innerHTML = '';
- 
+
     carArray.forEach(function (element,) {   // use handy array forEach method
         var li = document.createElement('li');
-        li.innerHTML = element.data + ":  " + element.type + "  (" +element.year+")" ;
+        li.innerHTML = element.data + ":  " + element.type + "  (" + element.year + ")";
         myulDel.appendChild(li);
     });
 };
